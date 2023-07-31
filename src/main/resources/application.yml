@@ -1,0 +1,61 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/microservice
+    username: root
+    password: root
+
+
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQL8Dialect
+
+
+
+  application:
+    name: HELLO-SERVICE
+
+  config:
+      import: configserver:http://localhost:5555
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: https://dev-39806476.okta.com/oauth2/default
+      client:
+        registration:
+          my-internal-client:
+            provider: okta
+            authorizationGrantType: client_credentials
+            scope: internal
+            clientId: 0oaaejbnvl6HKB9aW5d7
+            clientSecret: 7ZxQE8P0Wk-vhizLqfEwsNACAeaZFh3AsxAYV44E
+
+
+        provider:
+          okta:
+            issuerUri: https://dev-39806476.okta.com/oauth2/default
+
+
+server:
+  port: 2222
+eureka:
+      client:
+        service-url:
+          default-zone: ${DISCOVERY_URL:http://localhost:8761}/eureka/
+
+
+
+
+
+
+
+
+
+
